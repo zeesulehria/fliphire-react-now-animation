@@ -19,20 +19,20 @@ const instructions = Platform.select({
 type Props = {};
 export default class App extends Component<Props> {
 
-  translateX = new Animated.Value(0);
+  translateY = new Animated.Value(0);
   _panResponder = PanResponder.create({
     onMoveShouldSetResponderCapture: () => true,
     onMoveShouldSetPanResponderCapture: () => true,
-    onPanResponderMove: Animated.event([null, {dy: this.translateX}]),
-    onPanResponderRelease: (e, {vx, dx}) => {
-      const screenWidth = Dimensions.get("window").width;
-      if (Math.abs(vx) >= 0.5 || Math.abs(dx) >= 0.5 * screenWidth) {
-        Animated.timing(this.translateX, {
-          toValue: dx > 0 ? screenWidth : -screenWidth,
+    onPanResponderMove: Animated.event([null, {dy: this.translateY}]),
+    onPanResponderRelease: (e, {vy, dy}) => {
+      const screenHeight = Dimensions.get("window").height;
+      if (Math.abs(vy) >= 0.5 || Math.abs(dy) >= 0.5 * screenHeight) {
+        Animated.timing(this.translateY, {
+          toValue: dy > 0 ? screenHeight : -screenHeight,
           duration: 200
         }).start(this.props.onDismiss);
       } else {
-        Animated.spring(this.translateX, {
+        Animated.spring(this.translateY, {
           toValue: 0,
           bounciness: 10
         }).start();
@@ -46,7 +46,7 @@ export default class App extends Component<Props> {
         {/* <Text style={styles.welcome}>Welcome to React Native!</Text>
         <Text style={styles.instructions}>To get started, edit App.js</Text>
         <Text style={styles.instructions}>{instructions}</Text> */}
-        <Animated.View style={[styles.bottomMenu, {transform: [{translateY: this.translateX}]}]} {...this._panResponder.panHandlers}>
+        <Animated.View style={[styles.bottomMenu, {transform: [{translateY: this.translateY}]}]} {...this._panResponder.panHandlers}>
           <View style={styles.nowButton}> 
             <Text style={styles.nowButtonText}>NOW</Text> 
           </View>
