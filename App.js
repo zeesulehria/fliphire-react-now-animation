@@ -6,8 +6,8 @@
  * @flow
  */
 
-import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View, Animated, PanResponder, Dimensions} from 'react-native';
+import React, { Component } from 'react';
+import { Platform, StyleSheet, Text, View, Animated, PanResponder, Dimensions } from 'react-native';
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
@@ -23,8 +23,8 @@ export default class App extends Component<Props> {
   _panResponder = PanResponder.create({
     onMoveShouldSetResponderCapture: () => true,
     onMoveShouldSetPanResponderCapture: () => true,
-    onPanResponderMove: Animated.event([null, {dy: this.translateY}]),
-    onPanResponderRelease: (e, {vy, dy}) => {
+    onPanResponderMove: Animated.event([null, { dy: this.translateY }]),
+    onPanResponderRelease: (e, { vy, dy }) => {
       const screenHeight = Dimensions.get("window").height;
       if (Math.abs(vy) >= 0.5 || Math.abs(dy) >= 0.5 * screenHeight) {
         Animated.timing(this.translateY, {
@@ -46,11 +46,25 @@ export default class App extends Component<Props> {
         {/* <Text style={styles.welcome}>Welcome to React Native!</Text>
         <Text style={styles.instructions}>To get started, edit App.js</Text>
         <Text style={styles.instructions}>{instructions}</Text> */}
-        <Animated.View style={[styles.bottomMenu, {transform: [{translateY: this.translateY}]}]} {...this._panResponder.panHandlers}>
-          <View style={styles.nowButton}> 
-            <Text style={styles.nowButtonText}>NOW</Text> 
+        <View style={styles.absolute}>
+          <View style={styles.actionButton}>
+            <Text style={styles.nowButtonText}>1</Text>
           </View>
-        </Animated.View>
+          <View style={styles.actionButton}>
+            <Text style={styles.nowButtonText}>2</Text>
+          </View>
+          <Animated.View style={[styles.bottomMenu, { transform: [{ translateY: this.translateY }] }]} {...this._panResponder.panHandlers}>
+            <View style={styles.nowButton}>
+              <Text style={styles.nowButtonText}>NOW</Text>
+            </View>
+          </Animated.View>
+          <View style={styles.actionButton}>
+            <Text style={styles.nowButtonText}>1</Text>
+          </View>
+          <View style={styles.actionButton}>
+            <Text style={styles.nowButtonText}>2</Text>
+          </View>
+        </View>
       </View>
     );
   }
@@ -60,29 +74,45 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
+  // welcome: {
+  //   fontSize: 20,
+  //   textAlign: 'center',
+  //   margin: 10,
+  // },
+  // instructions: {
+  //   textAlign: 'center',
+  //   color: '#333333',
+  //   marginBottom: 5,
+  // },
+  absolute: {
+    position: 'absolute',
+    bottom: "3%",
+    width: "100%",
+    flexDirection: 'row',
+    justifyContent: "space-evenly",
+    paddingLeft: "5%",
+    paddingRight: "5%",
   },
   bottomMenu: {
-    position: "absolute",
-    bottom: 0,
-    alignSelf: "center",
-    backgroundColor: 'red',
+
   },
   nowButton: {
     justifyContent: "center",
     alignItems: 'center',
+    borderRadius: 180,
+    backgroundColor: 'blue',
+    height: 70,
+    width: 70,
+    alignSelf: "center",
+  },
+  actionButton: {
+    justifyContent: "center",
+    alignItems: 'center',
     borderRadius: 100,
     backgroundColor: 'blue',
-    height: 100,
-    width: 100,
+    height: 40,
+    width: 40,
+    alignSelf: "center",
   },
   nowButtonText: {
 
