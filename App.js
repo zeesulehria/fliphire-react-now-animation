@@ -40,36 +40,25 @@ export default class App extends Component<Props> {
       if (Math.abs(vy) >= 0.5 || Math.abs(dy) >= 0.5 * screenHeight) {
         // Now button
         Animated.timing(this.translateY, {
-          toValue: dy > 0 ? screenHeight : -screenHeight,
+          toValue: screenHeight,
           duration: 200
         }).start(this.props.onDismiss);
 
         // Left 1 Icon
-        this.timingAnimation(this.translateL1X, dy > 0 ? screenHeight : -screenHeight);
-        this.timingAnimation(this.translateL1Y, dy > 0 ? screenHeight : -screenHeight);
+        this.timingAnimation(this.translateL1X, -screenHeight);
+        this.timingAnimation(this.translateL1Y, screenHeight);
 
-        // Left 1 Icon
-        this.timingAnimation(this.translateL2X, dy > 0 ? screenHeight : -screenHeight);
-        this.timingAnimation(this.translateL2Y, dy > 0 ? screenHeight : -screenHeight);
+        // Left 2 Icon
+        this.timingAnimation(this.translateL2X, -screenHeight);
+        this.timingAnimation(this.translateL2Y, screenHeight);
 
-        // Left 1 Icon
-        this.timingAnimation(this.translateR1X, dy > 0 ? screenHeight : -screenHeight);
-        this.timingAnimation(this.translateR1Y, dy > 0 ? screenHeight : -screenHeight);
+        // Right 1 Icon
+        this.timingAnimation(this.translateR1X, screenHeight);
+        this.timingAnimation(this.translateR1Y, screenHeight);
 
-        // Left 1 Icon
-        this.timingAnimation(this.translateR2X, dy > 0 ? screenHeight : -screenHeight);
-        this.timingAnimation(this.translateR2Y, dy > 0 ? screenHeight : -screenHeight);
-
-        // Animated.timing(this.translateYIcon1, {
-        //   toValue: dy > 0 ? screenHeight : -screenHeight,
-        //   duration: 200
-        // }).start(this.props.onDismiss);
-
-        // // Level 2 Icon
-        // Animated.timing(this.translateYIcon2, {
-        //   toValue: dy > 0 ? screenHeight : -screenHeight,
-        //   duration: 200
-        // }).start(this.props.onDismiss);
+        // Right 2 Icon
+        this.timingAnimation(this.translateR2X, screenHeight);
+        this.timingAnimation(this.translateR2Y, screenHeight);
 
       } else {
         // NOW button
@@ -93,16 +82,6 @@ export default class App extends Component<Props> {
         // Right 2 Icon
         this.springAnimation(this.translateR2X);
         this.springAnimation(this.translateR2Y);
-        // Animated.spring(this.translateYIcon1, {
-        //   toValue: 0,
-        //   bounciness: 10
-        // }).start();
-
-        // //Level 2 Icon
-        // Animated.spring(this.translateYIcon2, {
-        //   toValue: 0,
-        //   bounciness: 10
-        // }).start();
 
       }
     }
@@ -138,14 +117,11 @@ export default class App extends Component<Props> {
   render() {
     return (
       <View style={styles.container}>
-        {/* <Text style={styles.welcome}>Welcome to React Native!</Text>
-        <Text style={styles.instructions}>To get started, edit App.js</Text>
-        <Text style={styles.instructions}>{instructions}</Text> */}
         <View style={styles.absolute}>
-          <Animated.View style={[styles.actionButton, { transform: [{translateX: this.translateL1X }, { translateY: this.translateL1Y}] }]} {...this._panResponder.panHandlers}>
+          <Animated.View style={[styles.actionButton, { transform: [{translateX: this.translateL1X }, { translateY: this.translateL1Y}] }]}>
             <Text style={styles.nowButtonText}>L1</Text>
           </Animated.View>
-          <Animated.View style={[styles.actionButton, { transform: [{translateX: this.translateL2X }, { translateY: this.translateL2Y}] }]} {...this._panResponder.panHandlers}>
+          <Animated.View style={[styles.actionButton, { transform: [{translateX: this.translateL2X }, { translateY: this.translateL2Y}] }]}>
             <Text style={styles.nowButtonText}>L2</Text>
           </Animated.View>
           <Animated.View style={[styles.bottomMenu, { transform: [{ translateY: this.translateY }] }]} {...this._panResponder.panHandlers}>
@@ -153,10 +129,10 @@ export default class App extends Component<Props> {
               <Text style={styles.nowButtonText}>NOW</Text>
             </View>
           </Animated.View>
-          <Animated.View style={[styles.actionButton, { transform: [{translateX: this.translateR1X }, { translateY: this.translateR1Y}] }]} {...this._panResponder.panHandlers}>
+          <Animated.View style={[styles.actionButton, { transform: [{translateX: this.translateR1X }, { translateY: this.translateR1Y}] }]}>
             <Text style={styles.nowButtonText}>R1</Text>
           </Animated.View>
-          <Animated.View style={[styles.actionButton, { transform: [{translateX: this.translateR2X }, { translateY: this.translateR2Y}] }]} {...this._panResponder.panHandlers}>
+          <Animated.View style={[styles.actionButton, { transform: [{translateX: this.translateR2X }, { translateY: this.translateR2Y}] }]}>
             <Text style={styles.nowButtonText}>R2</Text>
           </Animated.View>
         </View>
@@ -169,16 +145,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  // welcome: {
-  //   fontSize: 20,
-  //   textAlign: 'center',
-  //   margin: 10,
-  // },
-  // instructions: {
-  //   textAlign: 'center',
-  //   color: '#333333',
-  //   marginBottom: 5,
-  // },
   absolute: {
     position: 'absolute',
     bottom: "3%",
@@ -189,7 +155,6 @@ const styles = StyleSheet.create({
     paddingRight: "5%",
   },
   bottomMenu: {
-
   },
   nowButton: {
     justifyContent: "center",
@@ -211,6 +176,5 @@ const styles = StyleSheet.create({
   },
   nowButtonText: {
     color: 'white'
-
   }
 });
